@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test de Enamoramiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #007bff;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #result-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Enamoramiento</h1>
+    <form id="enamoramiento-test">
+        <ol>
+            <li>
+                <p>1. ¿Piensas constantemente en esa persona?</p>
+                <input type="radio" name="p1" value="4"> Siempre
+                <input type="radio" name="p1" value="3"> Frecuentemente
+                <input type="radio" name="p1" value="2"> A veces
+                <input type="radio" name="p1" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>2. ¿Te pones nervioso/a o ansioso/a cuando estás cerca de esa persona?</p>
+                <input type="radio" name="p2" value="4"> Siempre
+                <input type="radio" name="p2" value="3"> Frecuentemente
+                <input type="radio" name="p2" value="2"> A veces
+                <input type="radio" name="p2" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>3. ¿Sientes mariposas en el estómago cuando piensas en esa persona?</p>
+                <input type="radio" name="p3" value="4"> Siempre
+                <input type="radio" name="p3" value="3"> Frecuentemente
+                <input type="radio" name="p3" value="2"> A veces
+                <input type="radio" name="p3" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>4. ¿Te interesas por sus gustos, hobbies y actividades?</p>
+                <input type="radio" name="p4" value="4"> Siempre
+                <input type="radio" name="p4" value="3"> Frecuentemente
+                <input type="radio" name="p4" value="2"> A veces
+                <input type="radio" name="p4" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>5. ¿Sientes que te importa más su felicidad que la tuya propia?</p>
+                <input type="radio" name="p5" value="4"> Siempre
+                <input type="radio" name="p5" value="3"> Frecuentemente
+                <input type="radio" name="p5" value="2"> A veces
+                <input type="radio" name="p5" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>6. ¿Has sentido celos cuando esa persona interactúa con otras personas?</p>
+                <input type="radio" name="p6" value="4"> Siempre
+                <input type="radio" name="p6" value="3"> Frecuentemente
+                <input type="radio" name="p6" value="2"> A veces
+                <input type="radio" name="p6" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>7. ¿Has imaginado un futuro a su lado?</p>
+                <input type="radio" name="p7" value="4"> Siempre
+                <input type="radio" name="p7" value="3"> Frecuentemente
+                <input type="radio" name="p7" value="2"> A veces
+                <input type="radio" name="p7" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>8. ¿Sientes que te entiende mejor que nadie?</p>
+                <input type="radio" name="p8" value="4"> Siempre
+                <input type="radio" name="p8" value="3"> Frecuentemente
+                <input type="radio" name="p8" value="2"> A veces
+                <input type="radio" name="p8" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>9. ¿Haces cosas especiales para sorprenderlo/a?</p>
+                <input type="radio" name="p9" value="4"> Siempre
+                <input type="radio" name="p9" value="3"> Frecuentemente
+                <input type="radio" name="p9" value="2"> A veces
+                <input type="radio" name="p9" value="1"> Casi nunca
+            </li>
+            <li>
+                <p>10. ¿Te sientes feliz cuando estás a su lado?</p>
+                <input type="radio" name="p10" value="4"> Siempre
+                <input type="radio" name="p10" value="3"> Frecuentemente
+                <input type="radio" name="p10" value="2"> A veces
+                <input type="radio" name="p10" value="1"> Casi nunca
+            </li>
+        </ol>
+            <input type="submit" value="Obtener resultados">
+        </form>
+        <div id="result-message"></div>
+    <script>
+         document.getElementById("enamoramiento-test").onsubmit = function(event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            // Obtener todas las respuestas seleccionadas
+            const selectedAnswers = [];
+            const questions = document.querySelectorAll('input[type="radio"]:checked');
+            questions.forEach(question => selectedAnswers.push(Number(question.value)));
+
+            // Calcular el puntaje total
+            const totalScore = selectedAnswers.reduce((total, score) => total + score, 0);
+
+            // Definir los rangos de puntaje
+            const ranges = [
+                { minScore: 10, maxScore: 20, result: "Es posible que solo te guste como amigo/a." },
+                { minScore: 21, maxScore: 30, result: "Puede que tengas sentimientos por esa persona." },
+                { minScore: 31, maxScore: 40, result: "Hay una alta probabilidad de que estés enamorado/a." },
+                { minScore: 41, maxScore: 50, result: "¡Definitivamente estás enamorado/a!" }
+            ];
+
+            // Encontrar el resultado correspondiente al puntaje total
+            let finalResult = "";
+            for (const range of ranges) {
+                if (totalScore >= range.minScore && totalScore <= range.maxScore) {
+                    finalResult = range.result;
+                    break;
+                }
+            }
+            // Mostrar el resultado debajo del formulario
+            const resultMessageElement = document.getElementById("result-message");
+            resultMessageElement.textContent = finalResult;
+        };
+    </script>
+</body>
+</html>
